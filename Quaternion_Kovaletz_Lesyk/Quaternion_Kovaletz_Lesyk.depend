@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1559206474 source:d:\c++\кватернионы\quaternion_kovaletz\tests\quaternion_kovaletz_lesyk_tests.c
+	<stdio.h>
+	<math.h>
+	<malloc.h>
+	"../headers/Quaternion_Kovaletz_Lesyk.h"
+
+1559139314 d:\c++\кватернионы\quaternion_kovaletz\headers\quaternion_kovaletz_lesyk.h
+
+1559206474 source:d:\c++\кватернионы\quaternion_kovaletz\src\quaternion_kovaletz_lesyk.c
+	<stdio.h>
+	<math.h>
+	<malloc.h>
+	"../headers/Quaternion_Kovaletz_Lesyk.h"
+

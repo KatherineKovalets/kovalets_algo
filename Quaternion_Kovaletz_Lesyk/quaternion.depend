@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1558880029 source:d:\c++\кватернионы\quaternion\quaternion.c
+	<stdio.h>
+	<math.h>
+
