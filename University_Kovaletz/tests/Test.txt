@@ -1,0 +1,62 @@
+Petrova
+20
+3
+Teacher
+10000
+0.07
+0.02
+Zrazhevsky
+30
+3
+Teacher
+10000
+0.07
+0.02
+3
+Arthem_Tsvik
+1200
+4
+Mathan 90
+DiffRivn 95
+Philosophy 92
+Logic 80
+Alexander
+1200
+4
+Mathan 85
+DiffRivn 90
+Philosophy 75
+Ecology 100
+Arthem
+1200
+4
+Mathan 100
+DiffRivn 95
+Philosophy 80
+Logic 80
+2
+Oleg
+1200
+5
+Mathan 100
+DiffRivn 92
+Philosophy 61
+Mechanics 90
+Programming 61
+Kate
+1200
+5
+Mathan 90
+DiffRivn 90
+Philosophy 98
+Mechanics 90
+Programming 97
+24600
+31600
+88.5
+86.9
+2271
+2250
+2265
+2169.6
+2316

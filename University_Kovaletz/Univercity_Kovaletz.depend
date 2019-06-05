@@ -1,0 +1,114 @@
+# depslib dependency file v1.0
+1559741516 source:d:\c++\university_kovaletz\univercity_kovaletz\src\university_kovaletz.cpp
+	<iostream>
+	<cmath>
+	<stdio.h>
+	<vector>
+	<fstream>
+	"University_Kovaletz.h"
+
+1559744726 d:\c++\university_kovaletz\univercity_kovaletz\src\university_kovaletz.h
+	<iostream>
+	<cmath>
+	<vector>
+	<fstream>
+
+1559741792 source:d:\c++\university_kovaletz\univercity_kovaletz\tests\university_kovaletz_test.cpp
+	<iostream>
+	<cmath>
+	<vector>
+	<fstream>
+	"../src/University_Kovaletz.h"
+
+1559743198 d:\c++\university_kovaletz\univercity_kovaletz\src\teacher.h
+	<iostream>
+	<cmath>
+	<vector>
+	<fstream>
+	"University_Kovaletz.h"
+	"Persone.h"
+	"Recordbook.h"
+	"Student.h"
+	"Profession.h"
+	"Worker.h"
+
+1559743198 d:\c++\university_kovaletz\univercity_kovaletz\src\persone.h
+	<iostream>
+	<cmath>
+	<vector>
+	<fstream>
+	"University_Kovaletz.h"
+	"Teacher.h"
+	"Recordbook.h"
+	"Student.h"
+	"Profession.h"
+	"Worker.h"
+
+1559743198 d:\c++\university_kovaletz\univercity_kovaletz\src\recordbook.h
+	<iostream>
+	<cmath>
+	<vector>
+	<fstream>
+	"University_Kovaletz.h"
+	"Persone.h"
+	"Teacher.h"
+	"Student.h"
+	"Profession.h"
+	"Worker.h"
+
+1559743198 d:\c++\university_kovaletz\univercity_kovaletz\src\student.h
+	<iostream>
+	<cmath>
+	<vector>
+	<fstream>
+	"University_Kovaletz.h"
+	"Persone.h"
+	"Recordbook.h"
+	"Teacher.h"
+	"Profession.h"
+	"Worker.h"
+
+1559743198 d:\c++\university_kovaletz\univercity_kovaletz\src\profession.h
+	<iostream>
+	<cmath>
+	<vector>
+	<fstream>
+	"University_Kovaletz.h"
+	"Persone.h"
+	"Recordbook.h"
+	"Student.h"
+	"Teacher.h"
+	"Worker.h"
+
+1559742967 d:\c++\university_kovaletz\univercity_kovaletz\src\worker.h
+	<iostream>
+	<cmath>
+	<vector>
+	<fstream>
+	"Persone.h"
+	"Recordbook.h"
+	"Student.h"
+	"Profession.h"
+	"Teacher.h"
+
+1559741516 source:d:\c++\university_kovaletz\university_kovaletz\src\university_kovaletz.cpp
+	<iostream>
+	<cmath>
+	<stdio.h>
+	<vector>
+	<fstream>
+	"University_Kovaletz.h"
+
+1559746183 d:\c++\university_kovaletz\university_kovaletz\src\university_kovaletz.h
+	<iostream>
+	<cmath>
+	<vector>
+	<fstream>
+
+1559752728 source:d:\c++\university_kovaletz\university_kovaletz\tests\university_kovaletz_test.cpp
+	<iostream>
+	<cmath>
+	<vector>
+	<fstream>
+	"../src/University_Kovaletz.h"
+
