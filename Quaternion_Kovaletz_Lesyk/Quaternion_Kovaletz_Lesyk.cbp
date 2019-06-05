@@ -40,6 +40,13 @@
 		<Unit filename="tests\Quaternion_Kovaletz_Lesyk_tests.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="tests\Test.txt" />
+		<Unit filename="tests\TestResult.txt" />
+		<Unit filename="tests\TextFileAngle3D.txt" />
+		<Unit filename="tests\TextFileFigure3D.txt" />
+		<Unit filename="tests\TextFilePoint3D.txt" />
+		<Unit filename="tests\TextFileQuater.txt" />
+		<Unit filename="tests\TextFileVector3D.txt" />
 		<Extensions>
 			<code_completion />
 			<envvars />

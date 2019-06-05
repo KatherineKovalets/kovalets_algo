@@ -13,3 +13,18 @@
 	<malloc.h>
 	"../headers/Quaternion_Kovaletz_Lesyk.h"
 
+1559752124 source:d:\c++\кватернионы\quaternion_kovaletz_lesyk\src\quaternion_kovaletz_lesyk.c
+	<stdio.h>
+	<math.h>
+	<malloc.h>
+	"../headers/Quaternion_Kovaletz_Lesyk.h"
+
+1559752426 d:\c++\кватернионы\quaternion_kovaletz_lesyk\headers\quaternion_kovaletz_lesyk.h
+
+1559753089 source:d:\c++\кватернионы\quaternion_kovaletz_lesyk\tests\quaternion_kovaletz_lesyk_tests.c
+	<stdio.h>
+	<math.h>
+	<malloc.h>
+	<stdbool.h>
+	"../headers/Quaternion_Kovaletz_Lesyk.h"
+

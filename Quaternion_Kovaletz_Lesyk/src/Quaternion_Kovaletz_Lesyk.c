@@ -48,9 +48,9 @@ double Dot_product(vector3D a,vector3D b)//—кал€рний добуток
 vector3D Cross_product(vector3D a, vector3D b)//¬екторний добуток
 {
     vector3D product;
-    product.Coordinates[0] = a.Coordinates[2] * b.Coordinates[1] - a.Coordinates[1] * b.Coordinates[2];
-    product.Coordinates[1] = a.Coordinates[0] * b.Coordinates[2] - a.Coordinates[2] * b.Coordinates[0];
-    product.Coordinates[2] = a.Coordinates[1] * b.Coordinates[0] - a.Coordinates[0] * b.Coordinates[1];
+    product.Coordinates[0] = - a.Coordinates[2] * b.Coordinates[1] + a.Coordinates[1] * b.Coordinates[2];
+    product.Coordinates[1] = - a.Coordinates[0] * b.Coordinates[2] + a.Coordinates[2] * b.Coordinates[0];
+    product.Coordinates[2] = - a.Coordinates[1] * b.Coordinates[0] + a.Coordinates[0] * b.Coordinates[1];
     return product;
 }
 double norm (vector3D a)//модуль
@@ -162,8 +162,8 @@ Point3D spherical(Point3D x)
     Sphere.Rad_vec.Coordinates[0] = sqrt(x.Rad_vec.Coordinates[0] * x.Rad_vec.Coordinates[0] +
     x.Rad_vec.Coordinates[1] * x.Rad_vec.Coordinates[1] +
     x.Rad_vec.Coordinates[2] * x.Rad_vec.Coordinates[2]);
-    Sphere.Rad_vec.Coordinates[1] =  atan(sqrt(x.Rad_vec.Coordinates[0] * x.Rad_vec.Coordinates[0] +
-    x.Rad_vec.Coordinates[1] * x.Rad_vec.Coordinates[1])/x.Rad_vec.Coordinates[2]);
+    Sphere.Rad_vec.Coordinates[1] =  atan2(sqrt(x.Rad_vec.Coordinates[0] * x.Rad_vec.Coordinates[0] +
+    x.Rad_vec.Coordinates[1] * x.Rad_vec.Coordinates[1]),x.Rad_vec.Coordinates[2]);
     Sphere.Rad_vec.Coordinates[2] =  atan( x.Rad_vec.Coordinates[1]/x.Rad_vec.Coordinates[0]);
 
     return Sphere;
@@ -173,7 +173,7 @@ Point3D cylindrical (Point3D x)
     Point3D Cylindr;
     Cylindr.Rad_vec.Coordinates[0] = sqrt(x.Rad_vec.Coordinates[0] * x.Rad_vec.Coordinates[0] +
     x.Rad_vec.Coordinates[1] * x.Rad_vec.Coordinates[1]);
-    Cylindr.Rad_vec.Coordinates[1] = atan(x.Rad_vec.Coordinates[1]/x.Rad_vec.Coordinates[0]);
+    Cylindr.Rad_vec.Coordinates[1] = atan2(x.Rad_vec.Coordinates[1],x.Rad_vec.Coordinates[0]);
     Cylindr.Rad_vec.Coordinates[2] = x.Rad_vec.Coordinates[2];
     return Cylindr;
 }
@@ -348,44 +348,26 @@ int inputExp(double *x,int len)
 }
 void inputBinFile(double *x, int len,FILE *file)
 {
-    /*FILE *file = NULL;
-   printf("Open file\n");
-   file = fopen("D:\c++\ ватернионы\quaternion\BinFile.dat","rb");
-   if(file == NULL)
-   {
-        printf("Error opening file\n");
-        exit(1);
-   }*/
    fread(&x, sizeof(double), len, file);
    for (int i = 0;i<len;i++)
    {
        printf("%f",x[i]);
    }
-   //fclose(file);
 }
 void inputTextFile(double *x, int len,FILE *file)//вв≥д з текстового файлу
 {
-    /*FILE *file = NULL;
-    printf("Open file\n");
-    file = fopen("D:\c++\ ватернионы\quaternion\TextFile.txt","r");
-    if(file == NULL)
-    {
-        printf("Error opening file\n");
-        exit(1);
-    }*/
     int i=0;
     char ch;
     while((ch=getc(file))!='\n')
     {
         fscanf(file, "%lf", &(x[i]));
-        printf("%f", x[i]);
+        printf("%10.4f", x[i]);
         i++;
         if(i == len)
         {
             break;
         }
     }
-   //fclose(file);
 }
 int outputDec(double *x,int len)
 {
@@ -406,54 +388,36 @@ int outputExp(double *x,int len)
 }
 void outputBinFile(double *x, int len, FILE *file)
 {
- /*   FILE *file = NULL;
-   printf("Open file\n");
-   file = fopen("D:\c++\ ватернионы\quaternion\BinFile.dat","rb");
-   if(file == NULL)
-   {
-        printf("Error opening file\n");
-        exit(1);
-   }*/
    fwrite(&x, sizeof(double), len, file);
    //fclose(file);
 }
 void outputTextFile(double *x, int len, FILE *file)
 {
-    /*FILE *file = NULL;
-    printf("Open file\n");
-    file = fopen("D:\c++\ ватернионы\quaternion\TextFile.txt","r");
-    if(file == NULL)
-    {
-        printf("Error opening file\n");
-        exit(1);
-    }*/
     int i=0;
     while(1)
     {
-        fprintf(file, "%10.4lf", x[i]);
-        printf("10.4lf", x[i]);
+        fprintf(file, " %f", x[i]);
+        printf("%10.4f", x[i]);
         i++;
         if(i == len)
         {
             break;
         }
     }
-        fprintf(file, "%с", '\n');
-
-   //fclose(file);
+        fprintf(file, "\n");
 }
 // дл€ структури вектор
 vector3D input_DecV3D()
 {
     printf("\n");
-    printf("Enter decimal vector coordinates:\n");
+    printf("\nEnter decimal vector coordinates:\n");
     vector3D result;
     inputDec(result.Coordinates, 3);
     return result;
 }
 vector3D input_ExpV3D()
 {
-    printf("Enter exponential vector coordinates:\n");
+    printf("\nEnter exponential vector coordinates:\n");
     vector3D result;
     inputExp(result.Coordinates, 3);
     printf("\n");
@@ -461,7 +425,7 @@ vector3D input_ExpV3D()
 }
 vector3D inputTextFileV3D(FILE *file)
 {
-    printf("Vector coordinates from text fle:\n");
+    printf("\nVector coordinates from text file:\n");
     vector3D result;
     inputTextFile(result.Coordinates, 3, file);
     printf("\n");
@@ -470,7 +434,7 @@ vector3D inputTextFileV3D(FILE *file)
 vector3D inputBinFileV3D(FILE *file)
 {
 
-    printf("Vector coordinates from bin fle:\n");
+    printf("\nVector coordinates from bin file:\n");
     vector3D result;
     inputBinFile(result.Coordinates, 3, file);
     printf("\n");
@@ -478,25 +442,25 @@ vector3D inputBinFileV3D(FILE *file)
 }
 void output_DecV3D(vector3D x)
 {
-    printf("Vector coordinates decimal:\n");
+    printf("\nVector coordinates decimal:\n");
     outputDec(x.Coordinates, 3);
     printf("\n");
 }
 void output_ExpV3D(vector3D x)
 {
-    printf("Vector coordinates exponential:\n");
+    printf("\nVector coordinates exponential:\n");
     outputExp(x.Coordinates, 3);
     printf("\n");
 }
 void outputBinFileV3D(vector3D x, FILE *file)
 {
-    printf("Vector coordinates are written to a binary fle:\n");
+    printf("\nVector coordinates are written to a binary file:\n");
     outputBinFile(x.Coordinates, 3, file);
     printf("\n");
 }
 void outputTextFileV3D(vector3D x, FILE *file)
 {
-    printf("Vector coordinates are written to a text fle:\n");
+    printf("\nVector coordinates are written to a text file:\n");
     outputTextFile(x.Coordinates, 3, file);
     printf("\n");
 }
@@ -505,7 +469,7 @@ Quaternion input_DecQuater()
 {
     Quaternion result;
     double x[4];
-    printf("Enter quaternion Re and 3 Im parts (decimal):\n");
+    printf("\nEnter quaternion Re and 3 Im parts (decimal):\n");
     inputDec(x, 4);
     result.Re = x[0];
     result.Im[0] = x[1];
@@ -518,7 +482,7 @@ Quaternion input_ExpQuater()
 {
     Quaternion result;
     double x[4];
-    printf("Enter quaternion Re and 3 Im parts (exponential):\n");
+    printf("\nEnter quaternion Re and 3 Im parts (exponential):\n");
     inputExp(x, 4);
     result.Re = x[0];
     result.Im[0] = x[1];
@@ -529,9 +493,14 @@ Quaternion input_ExpQuater()
 }
 Quaternion inputTextFileQuater(FILE *file)
 {
-    printf("Quaternion from text fle:\n");
+    printf("\nQuaternion from text file:\n");
     Quaternion result;
     double x[4];
+    //char ch;
+    //if(getc(file)=='\n')
+    //{
+      //  fgetc(file);
+    //}
     inputTextFile(x, 4, file);
     result.Re = x[0];
     result.Im[0] = x[1];
@@ -543,7 +512,7 @@ Quaternion inputTextFileQuater(FILE *file)
 }
 Quaternion inputBinFileQuater(FILE *file)
 {
-    printf("Quaternion from bin fle:\n");
+    printf("\nQuaternion from bin file:\n");
     Quaternion result;
     double x[4];
     inputBinFile(x, 4, file);
@@ -553,11 +522,11 @@ Quaternion inputBinFileQuater(FILE *file)
     result.Im[2] = x[3];
     printf("\n");
     return result;
-}
+    }
 void output_DecQuater(Quaternion x)
 {
 
-    printf("Quaternion (decimal)");
+    printf("\nQuaternion (decimal)\n");
     outputDec(&(x.Re), 1);
     outputDec(x.Im, 3);
     printf("\n");
@@ -565,29 +534,31 @@ void output_DecQuater(Quaternion x)
 
 void output_ExpQuater(Quaternion x)
 {
-    printf("Quaternion (exponential):\n");
+    printf("\nQuaternion (exponential):\n");
     outputExp(&(x.Re), 1);
     outputExp(x.Im, 3);
     printf("\n");
 }
 void outputBinFileQuater(Quaternion x, FILE *file)
 {
-    printf("Quaternion is written to a binary fle:\n");
-    outputBinFile(&(x.Re), 1, file);
-    outputBinFile(x.Im, 3, file);
+    printf("\nQuaternion is written to a binary file:\n");
+    double y[4];
+    y[0] = x.Re; y[1] = x.Im[0]; y[2] = x.Im[1]; y[3] = x.Im[2];
+    outputBinFile(y, 4,file);
     printf("\n");
 }
 void outputTextFileQuater(Quaternion x, FILE *file)
 {
-    printf("Quaternion is written to a text fle:\n");
-    outputTextFile(&(x.Re), 1, file);
-    outputTextFile(x.Im, 3,file);
+    printf("\nQuaternion is written to a text file:\n");
+    double y[4];
+    y[0] = x.Re; y[1] = x.Im[0]; y[2] = x.Im[1]; y[3] = x.Im[2];
+    outputTextFile(y, 4,file);
     printf("\n");
 }
 //ƒл€ стурктури Point3D
 Point3D input_DecP3D()
 {
-    printf("Enter decimal point coordinates:\n");
+    printf("\nEnter decimal point coordinates:\n");
     Point3D result;
     inputDec(result.Rad_vec.Coordinates, 3);
     printf("\n");
@@ -595,7 +566,7 @@ Point3D input_DecP3D()
 }
 Point3D input_ExpP3D()
 {
-    printf("Enter exponential point coordinates:\n");
+    printf("\nEnter exponential point coordinates:\n");
     Point3D result;
     inputExp(result.Rad_vec.Coordinates, 3);
     printf("\n");
@@ -603,16 +574,16 @@ Point3D input_ExpP3D()
 }
 Point3D inputTextFileP3D(FILE *file)
 {
-    printf("Point coordinates from text fle:\n");
+    printf("\nPoint coordinates from text file:\n");
     Point3D result;
-    inputTextFile(result.Rad_vec.Coordinates, 3, file);
+    result.Rad_vec = inputTextFileV3D(file);
     printf("\n");
     return result;
 }
 Point3D inputBinFileP3D(FILE *file)
 {
 
-    printf("Point coordinates from bin fle:\n");
+    printf("\nPoint coordinates from bin file:\n");
     Point3D result;
     inputBinFile(result.Rad_vec.Coordinates, 3, file);
     printf("\n");
@@ -620,26 +591,26 @@ Point3D inputBinFileP3D(FILE *file)
 }
 void output_DecP3D(Point3D x)
 {
-    printf("Point coordinates decimal:\n");
+    printf("\nPoint coordinates decimal:\n");
     outputDec(x.Rad_vec.Coordinates, 3);
     printf("\n");
 }
 void output_ExpP3D(Point3D x)
 {
-    printf("Point coordinates exponential:\n");
+    printf("\nPoint coordinates exponential:\n");
     outputExp(x.Rad_vec.Coordinates, 3);
     printf("\n");
 }
 void outputBinFileP3D(Point3D x, FILE *file)
 {
-    printf("Point coordinates are written to a binary fle:\n");
+    printf("\nPoint coordinates are written to a binary file:\n");
     outputBinFile(x.Rad_vec.Coordinates, 3, file);
     printf("\n");
 }
 void outputTextFileP3D(Point3D x, FILE *file)
 {
-    printf("Point coordinates are written to a text fle:\n");
-    outputTextFile(x.Rad_vec.Coordinates, 3, file);
+    printf("\nPoint coordinates are written to a text file:\n");
+    outputTextFileV3D(x.Rad_vec, file);
     printf("\n");
 }
 // ƒл€ структури Angle3D
@@ -647,7 +618,7 @@ void outputTextFileP3D(Point3D x, FILE *file)
 Angle3D input_DecAngle3D()
 {
     Angle3D result;
-    printf("Enter Angle3D angle and 3 axis coordinates (decimal):\n");
+    printf("\nEnter Angle3D angle and 3 axis coordinates (decimal):\n");
     inputDec(&result.angle, 1);
     result.axis = input_DecV3D();
     printf("\n");
@@ -656,7 +627,7 @@ Angle3D input_DecAngle3D()
 Angle3D input_ExpAngle3D()
 {
     Angle3D result;
-    printf("Enter Angle3D angle and 3 axis coordidnates (exponential):\n");
+    printf("\nEnter Angle3D angle and 3 axis coordidnates (exponential):\n");
     inputExp(&result.angle, 1);
     result.axis = input_ExpV3D();
     printf("\n");
@@ -664,7 +635,7 @@ Angle3D input_ExpAngle3D()
 }
 Angle3D inputTextFileAngle3D(FILE *file)
 {
-    printf("Angle3D from text fle:\n");
+    printf("\nAngle3D from text file:\n");
     Angle3D result;
     inputTextFile(&result.angle, 1, file);
     result.axis = inputTextFileV3D(file);
@@ -674,7 +645,7 @@ Angle3D inputTextFileAngle3D(FILE *file)
 }
 Angle3D inputBinFileAngle3D(FILE *file)
 {
-    printf("Angle3D from bin fle:\n");
+    printf("\nAngle3D from bin file:\n");
     Angle3D result;
     inputTextFile(&result.angle, 1, file);
     result.axis = inputTextFileV3D(file);
@@ -683,7 +654,7 @@ Angle3D inputBinFileAngle3D(FILE *file)
 }
 void output_DecAngle3D(Angle3D x)
 {
-    printf("Angle3D (decimal):\n");
+    printf("\nAngle3D (decimal):\n");
     outputDec(&(x.angle), 1);
     outputDec(x.axis.Coordinates, 3);
     printf("\n");
@@ -691,23 +662,24 @@ void output_DecAngle3D(Angle3D x)
 
 void output_ExpAngle3D(Angle3D x)
 {
-    printf("Angle3D (exponential):\n");
+    printf("\nAngle3D (exponential):\n");
     outputExp(&(x.angle), 1);
     outputExp(x.axis.Coordinates, 3);
     printf("\n");
 }
 void outputBinFileAngle3D(Angle3D x, FILE *file)
 {
-    printf("Angle3D is written to a binary fle:\n");
+    printf("\nAngle3D is written to a binary file:\n");
     outputBinFile(&(x.angle), 1, file);
     outputBinFile(x.axis.Coordinates, 3, file);
     printf("\n");
 }
 void outputTextFileAngle3D(Angle3D x, FILE *file)
 {
-    printf("Angle3D is written to a text fle:\n");
-    outputTextFile(&(x.angle), 1, file);
-    outputTextFile(x.axis.Coordinates, 3,file);
+    printf("\nAngle3D is written to a text file:\n");
+    fprintf(file," %f",x.angle);
+    printf("%10.4f",x.angle);
+    outputTextFileV3D(x.axis,file);
     printf("\n");
 }
 // ƒл€ структури Figure3D
@@ -720,22 +692,21 @@ typedef struct
 } Figure3D;*/
 Figure3D input_DecFigure3D()
 {
-    printf("\n");
     Figure3D result;
-    printf("Enter number of points and edges:\n");
+    printf("\nEnter number of points and edges:\n");
     scanf("%d %d", &result.num_points, &result.num_edges);
     result.points = calloc(result.num_points, sizeof(*result.points));
     for (int i=0;i<2;i++)
     {
         result.edges[i]=calloc(result.num_edges, sizeof(*result.edges[i]));
     }
-        printf("input points(decimal):");
+        printf("\ninput points(decimal):");
     for (int i = 0; i < result.num_points; i++)
     {
         result.points[i] = input_DecP3D();
     }
 
-        printf("input edge(pair of the points) (decimal), using previously entered points:");
+        printf("\ninput edge(pair of the points) (decimal), using previously entered points:");
     for (int i = 0; i < result.num_edges; i++)
     {
         for (int j = 0; j < 2;j++)
@@ -756,12 +727,12 @@ Figure3D input_ExpFigure3D()
     {
         result.edges[i]=calloc(result.num_edges, sizeof(*result.edges[i]));
     }
-        printf("input points(exponential):");
+        printf("\ninput points(exponential):");
     for (int i = 0; i < result.num_points; i++)
     {
         result.points[i] = input_ExpP3D();
     }
-        printf("input edge(pair of the points)(exponential), using previously entered points:");
+        printf("\ninput edge(pair of the points)(exponential), using previously entered points:");
     for (int i = 0; i < result.num_edges; i++)
     {
         for (int j = 0; j < 2;j++)
@@ -770,64 +741,78 @@ Figure3D input_ExpFigure3D()
     }
     return result;
 }
-Figure3D inputTextFileFig3D(FILE *file_points, FILE *file_edges)
+Figure3D inputTextFileFig3D(FILE *file)
 {
     Figure3D result;
-    printf("Enter number os points and edges:\n");
-    scanf("%d %d", &result.num_points, &result.num_edges);
+    printf("\nEnter number of points and edges:\n");
+    fscanf(file,"%d\n%d",&result.num_points,&result.num_edges);
+
+    printf("%d %d",result.num_points,result.num_edges);
+    printf("\nGetting points and edges from text file\n");
     result.points = calloc(result.num_points, sizeof(*result.points));
-    printf("Getting points and edges from text file\n");
     for (int i=0;i<2;i++)
     {
         result.edges[i]=calloc(result.num_edges, sizeof(*result.edges[i]));
     }
+        fgetc(file);//забираЇмо знак к≥нц€ строки, щоб в≥н не заважав
     for (int i = 0; i < result.num_points; i++)
     {
-        result.points[i] = inputTextFileP3D(file_points);
+        result.points[i] = inputTextFileP3D(file);
+        fgetc(file);
     }
+    printf("\nGetting edges:\n");
     for (int i = 0; i < result.num_edges; i++)
     {
         for (int j = 0; j < 2;j++)
         {
-            result.edges[i][j] = inputTextFileP3D(file_edges);
+            result.edges[j][i] = inputTextFileP3D(file);
         }
+        fgetc(file);
          printf("\n");
     }
     return result;
 }
-Figure3D inputBinFileFig3D(FILE *file_points, FILE *file_edges)
+Figure3D inputBinFileFig3D(FILE *file)
 {
-    Figure3D result;
-    printf("Enter number of points and edges:\n");
-    scanf("%d %d", &result.num_points, &result.num_edges);
-    result.points = calloc(result.num_points, sizeof(*result.points));
 
-    printf("Getting points and edges from binary file\n");
+    Figure3D result;
+    printf("\nEnter number of points and edges:\n");
+    fscanf(file,"%d\n%d",&result.num_points,&result.num_edges);
+
+    printf("%d %d",result.num_points,result.num_edges);
+    printf("\nGetting points and edges from text file\n");
+    result.points = calloc(result.num_points, sizeof(*result.points));
     for (int i=0;i<2;i++)
     {
         result.edges[i]=calloc(result.num_edges, sizeof(*result.edges[i]));
     }
+        fgetc(file);//забираЇмо знак к≥≥нц€ строки, щоб в≥н не заважав
     for (int i = 0; i < result.num_points; i++)
     {
-        result.points[i] = inputBinFileP3D(file_points);
+        result.points[i] = inputBinFileP3D(file);
+        fgetc(file);
     }
+    printf("\nGetting edges:\n");
     for (int i = 0; i < result.num_edges; i++)
     {
         for (int j = 0; j < 2;j++)
-            result.edges[j][i] = inputBinFileP3D(file_edges);
-        printf("\n");
+        {
+            result.edges[j][i] = inputBinFileP3D(file);
+        }
+        fgetc(file);
+         printf("\n");
     }
     return result;
 }
 void output_DecFig3D(Figure3D x)
 {
-    printf("Getting points(decimal):\n");
+    printf("\nGetting points(decimal):\n");
     for(int i = 0; i<x.num_points; i++)
     {
         output_DecP3D(x.points[i]);
         printf("\n");
     }
-    printf("Getting edges(decimal):\n");
+    printf("\nGetting edges(decimal):\n");
     for(int i = 0; i<x.num_edges; i++)
     {
         for(int j = 0;j<2;j++)
@@ -837,13 +822,13 @@ void output_DecFig3D(Figure3D x)
 }
 void output_ExpFig3D(Figure3D x)
 {
-    printf("Getting points(exponential):\n");
+    printf("\nGetting points(exponential):\n");
     for(int i = 0; i<x.num_points;i++)
     {
         output_ExpP3D(x.points[i]);
         printf("\n");
     }
-    printf("Getting edges(exponential):\n");
+    printf("\nGetting edges(exponential):\n");
     for(int i = 0; i<x.num_edges; i++)
     {
         for(int j = 0;j<2;j++)
@@ -851,26 +836,58 @@ void output_ExpFig3D(Figure3D x)
         printf("\n");
     }
 }
-void outputTextFileFig3D(Figure3D x, FILE *file_points, FILE *file_edges)
+void outputTextFileFig3D(Figure3D x, FILE *file)
 {
-    printf("Writting to a text file points and edges\n");
+
+    printf("\nWritting to a text file points and edges\n");
+    printf("Writting to a text file number of points and edges\n");
+    fprintf(file," %d\n%d", x.num_points, x.num_edges);
+    printf(" %d\n%d", x.num_points, x.num_edges);
     for(int i = 0; i<x.num_points;i++)
     {
-        outputTextFileP3D(x.points[i],file_points);
-        fprintf(file_edges,"\n");
+        outputTextFileP3D(x.points[i],file);
     }
     for(int i = 0; i<x.num_edges; i++)
     {
-        for(int j = 0;j<2;j++)
-            outputTextFileP3D(x.edges[j][i], file_edges);
-        fprintf(file_edges, "\n");
+        for(int j = 0;j < 2; j++)
+        {
+            for (int k = 0; k < 3; k++)
+            {
+                fprintf(file," %f",x.edges[j][i].Rad_vec.Coordinates[k]);
+
+            }
+        }
+        fprintf(file, "\n");
     }
     printf("\n");
 
 }
-void outputBinFileFig3D(Figure3D x, FILE *file_points, FILE *file_edges)
+void outputBinFileFig3D(Figure3D x, FILE *file)
 {
-    printf("Writting to a text file points and edges\n");
+    printf("\nWritting to a text file points and edges\n");
+    printf("Writting to a text file number of points and edges\n");
+    fprintf(file," %d\n%d", x.num_points, x.num_edges);
+    printf(" %d\n%d", x.num_points, x.num_edges);
+    for(int i = 0; i<x.num_points;i++)
+    {
+        outputBinFileP3D(x.points[i],file);
+    }
+    for(int i = 0; i<x.num_edges; i++)
+    {
+        for(int j = 0;j < 2; j++)
+        {
+            for (int k = 0; k < 3; k++)
+            {
+                fprintf(file," %f",x.edges[j][i].Rad_vec.Coordinates[k]);
+
+            }
+        }
+        fprintf(file, "\n");
+    }
+    printf("\n");
+
+/*
+    printf("\nWritting to a text file points and edges\n");
     for(int i = 0; i<x.num_points;i++)
     {
         outputBinFileP3D(x.points[i],file_points);
@@ -884,4 +901,4 @@ void outputBinFileFig3D(Figure3D x, FILE *file_points, FILE *file_edges)
     }
 
     printf("\n");
-}
+*/}

@@ -1,7 +1,8 @@
 #ifndef QUATERNION_KOVALETZ_H_INCLUDED
 #define QUATERNION_KOVALETZ_H_INCLUDED
 
-// Усі стандартні функції, що стосуються виводу-вводу прописані в кінці цього файлу
+// Усі стандартні функції, що стосуються виводу-вводу прописані в кінці цього файлу.
+//Кожна структура містить ввід-вивід з/на консоль з/в текстовий/бінарний файл.
 // Усі дії відбуваються в Декартовій правій системі координат
 typedef struct {
     double Coordinates[3];
@@ -71,15 +72,15 @@ int outputExp(double *x,int len);
 void outputBinFile(double *x, int len, FILE *file);
 void outputTextFile(double *x, int len, FILE *file);
 // для структури вектор
-vector3D input_DecV3D();
 vector3D input_ExpV3D();
+vector3D input_DecV3D();
 vector3D inputTextFileV3D(FILE *file);
 vector3D inputBinFileV3D(FILE *file);
 void output_DecV3D(vector3D x);
 void outputBinFileV3D(vector3D x, FILE *file);
 //для структури Quaternion
-Quaternion input_DecQuater();
 Quaternion input_ExpQuater();
+Quaternion input_DecQuater();
 Quaternion inputTextFileQuater(FILE *file);
 Quaternion inputBinFileQuater(FILE *file);
 void output_DecQuater(Quaternion x);
@@ -87,8 +88,8 @@ void output_ExpQuater(Quaternion x);
 void outputBinFileQuater(Quaternion x, FILE *file);
 void outputTextFileQuater(Quaternion x, FILE *file);
 //Для стурктури Point3D
-Point3D input_DecP3D();
 Point3D input_ExpP3D();
+Point3D input_DecP3D();
 Point3D inputTextFileP3D(FILE *file);
 Point3D inputBinFileP3D(FILE *file);
 void output_DecP3D(Point3D x);
@@ -96,8 +97,8 @@ void output_ExpP3D(Point3D x);
 void outputBinFileP3D(Point3D x, FILE *file);
 void outputTextFileP3D(Point3D x, FILE *file);
 // Для структури Angle3D
-Angle3D input_DecAngle3D();
 Angle3D input_ExpAngle3D();
+Angle3D input_DecAngle3D();
 Angle3D inputTextFileAngle3D(FILE *file);
 Angle3D inputBinFileAngle3D(FILE *file);
 void output_DecAngle3D(Angle3D x);
@@ -105,14 +106,14 @@ void output_ExpAngle3D(Angle3D x);
 void outputBinFileAngle3D(Angle3D x, FILE *file);
 void outputTextFileAngle3D(Angle3D x, FILE *file);
 // Для структури Figure3D
-Figure3D input_DecFigure3D();
 Figure3D input_ExpFigure3D();
-Figure3D inputTextFileFig3D(FILE *file_points, FILE *file_edges);
-Figure3D inputBinFileFig3D(FILE *file_points, FILE *file_edges);
+Figure3D input_DecFigure3D();
+Figure3D inputTextFileFig3D(FILE *file);
+Figure3D inputBinFileFig3D(FILE *file);
 void output_DecFig3D(Figure3D x);
 void output_ExpFig3D(Figure3D x);
-void outputTextFileFig3D(Figure3D x, FILE *file_points, FILE *file_edges);
-void outputBinFileFig3D(Figure3D x, FILE *file_points, FILE *file_edges);
+void outputTextFileFig3D(Figure3D x, FILE *file);
+void outputBinFileFig3D(Figure3D x, FILE *file);
 
 
 #endif // QUATERNION_KOVALETZ_H_INCLUDED
